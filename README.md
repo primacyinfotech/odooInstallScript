@@ -15,8 +15,9 @@ sudo wget https://raw.githubusercontent.com/primacyinfotech/odooInstallScript/17
 ```
 ## input option Ask value 
 
+```
 sudo wget https://raw.githubusercontent.com/primacyinfotech/odooInstallScript/17.0/input_odoo_install.sh
-
+```
 
 ##### 2. Modify the parameters as you wish.
 There are a few things you can configure, this is the most used list:<br/>
