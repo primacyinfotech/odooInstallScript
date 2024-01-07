@@ -14,7 +14,7 @@ If you set the parameter ```INSTALL_NGINX``` to ```True``` you should also confi
 sudo wget https://raw.githubusercontent.com/primacyinfotech/odooInstallScript/17.0/odoo_install.sh
 ```
 Ask value sudo wget https://raw.githubusercontent.com/primacyinfotech/odooInstallScript/17.0/input_odoo_install.sh
-
+```
 ##### 2. Modify the parameters as you wish.
 There are a few things you can configure, this is the most used list:<br/>
 ```OE_USER``` will be the username for the system user.<br/>
@@ -36,11 +36,13 @@ There are a few things you can configure, this is the most used list:<br/>
 sudo chmod +x odoo_install.sh
 ```
 sudo chmod +x input_odoo_install.sh
+```
 ##### 4. Execute the script:
 ```
 sudo ./odoo_install.sh
 ```
 sudo ./input_odoo_install.sh
+```
 
 ## Where should I host Odoo?
 There are plenty of great services that offer good hosting. The script has been tested with a few major players such as [Google Cloud](https://cloud.google.com/), [Hetzner](https://www.hetzner.com/), [Amazon AWS](https://aws.amazon.com/) and [DigitalOcean](https://www.digitalocean.com/products/droplets/).
