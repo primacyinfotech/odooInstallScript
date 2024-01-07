@@ -13,9 +13,9 @@ If you set the parameter ```INSTALL_NGINX``` to ```True``` you should also confi
 ```
 sudo wget https://raw.githubusercontent.com/primacyinfotech/odooInstallScript/17.0/odoo_install.sh
 ```
-## input option
+## input option Ask value 
 
-Ask value sudo wget https://raw.githubusercontent.com/primacyinfotech/odooInstallScript/17.0/input_odoo_install.sh
+sudo wget https://raw.githubusercontent.com/primacyinfotech/odooInstallScript/17.0/input_odoo_install.sh
 
 
 ##### 2. Modify the parameters as you wish.
