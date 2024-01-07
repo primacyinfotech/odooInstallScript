@@ -12,8 +12,9 @@ If you set the parameter ```INSTALL_NGINX``` to ```True``` you should also confi
 ##### 1. Download the script:
 ```
 sudo wget https://raw.githubusercontent.com/primacyinfotech/odooInstallScript/17.0/odoo_install.sh
+
+## input option
 ```
-## input option 
 Ask value sudo wget https://raw.githubusercontent.com/primacyinfotech/odooInstallScript/17.0/input_odoo_install.sh
 ```
 
