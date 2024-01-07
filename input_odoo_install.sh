@@ -1,53 +1,52 @@
 #!/bin/bash
 ################################################################################
-# Script for installing Odoo on Ubuntu 16.04, 18.04, 20.04, and 22.04 (compatible with other versions)
-# Author: Your Name
+# Script for installing Odoo on Ubuntu 16.04, 18.04, 20.04, and 22.04 (may work on other versions)
+# Author: Yenthe Van Ginneken
 #-------------------------------------------------------------------------------
-# This script installs Odoo on your Ubuntu server. It can install multiple Odoo instances
-# with different XML-RPC ports.
+# This script will install Odoo on your Ubuntu server. It can install multiple Odoo instances
+# in one Ubuntu because of the different xmlrpc_ports
 #-------------------------------------------------------------------------------
-# Usage:
-# 1. Save this content to a file (e.g., odoo-install.sh).
-# 2. Make the file executable: chmod +x odoo-install.sh
-# 3. Execute the script: ./odoo-install.sh
+# Make a new file:
+# sudo nano odoo-install.sh
+# Place this content in it and then make the file executable:
+# sudo chmod +x odoo-install.sh
+# Execute the script to install Odoo:
+# ./odoo-install
 ################################################################################
 
+# Function to prompt the user for input with a default value
+prompt_with_default() {
+    read -p "$1 [$2]: " input
+    echo "${input:-$2}"
+}
 
-read -p "Enter the username for the system user (OE_USER): " OE_USER
-read -p "Generate a random password? (True/False, default is True): " GENERATE_RANDOM_PASSWORD
-GENERATE_RANDOM_PASSWORD=${GENERATE_RANDOM_PASSWORD:-"True"}
+# Prompt for values
+OE_USER=$(prompt_with_default "Enter the system user name for Odoo (default: odoo)" "odoo")
 
-read -p "Install Wkhtmltopdf? (True/False, default is True): " INSTALL_WKHTMLTOPDF
-INSTALL_WKHTMLTOPDF=${INSTALL_WKHTMLTOPDF:-"True"}
+INSTALL_WKHTMLTOPDF=$(prompt_with_default "Install Wkhtmltopdf? (True/False, default: True)" "True")
+OE_PORT=$(prompt_with_default "Enter the Odoo port (default: 8069)" "8069")
+OE_VERSION=$(prompt_with_default "Enter the Odoo version to install (default: 17.0)" "17.0")
+IS_ENTERPRISE=$(prompt_with_default "Install Odoo Enterprise version? (True/False, default: False)" "False")
+INSTALL_NGINX=$(prompt_with_default "Install Nginx? (True/False, default: False)" "False")
+WEBSITE_NAME=$(prompt_with_default "Enter the Nginx website name" "_")
+ENABLE_SSL=$(prompt_with_default "Enable SSL with certbot? (True/False, default: False)" "False")
+ADMIN_EMAIL=$(prompt_with_default "Enter your email for Let's Encrypt registration" "odoo@example.com")
+# Set the default Odoo longpolling port (you still have to use -c /etc/odoo-server.conf for example to use this.)
+LONGPOLLING_PORT==$(prompt_with_default "Enter the Odoo port (default: 8072)" "8072")
+# The default VALUE
+OE_HOME="/$OE_USER"
+OE_HOME_EXT="/$OE_USER/${OE_USER}-server"
+# The default port where this Odoo instance will run under (provided you use the command -c in the terminal)
+# Set to true if you want to install it, false if you don't need it or have it already installed.
+# Installs postgreSQL V14 instead of defaults (e.g V12 for Ubuntu 20/22) - this improves performance
+INSTALL_POSTGRESQL_FOURTEEN="True"
+# Set the superadmin password - if GENERATE_RANDOM_PASSWORD is set to "True" we will automatically generate a random password, otherwise we use this one
+OE_SUPERADMIN="admin"
+# Set to "True" to generate a random password, "False" to use the variable in OE_SUPERADMIN
+GENERATE_RANDOM_PASSWORD="True"
+OE_CONFIG="${OE_USER}-server"
 
-read -p "Enter the port where Odoo should run (e.g., 8069, default is 8069): " OE_PORT
-OE_PORT=${OE_PORT:-"8069"}
-
-read -p "Enter the Odoo version to install (e.g., 17.0, default is 17.0): " OE_VERSION
-OE_VERSION=${OE_VERSION:-"17.0"}
-
-read -p "Install Odoo Enterprise version? (True/False, default is False): " IS_ENTERPRISE
-IS_ENTERPRISE=${IS_ENTERPRISE:-"False"}
-
-read -p "Set the master password for Odoo installation (OE_SUPERADMIN): " OE_SUPERADMIN
-
-read -p "Install Nginx? (True/False, default is False): " INSTALL_NGINX
-INSTALL_NGINX=${INSTALL_NGINX:-"False"}
-
-if [ "$INSTALL_NGINX" == "True" ]; then
-    read -p "Enter the website name for Nginx configuration: " WEBSITE_NAME
-    read -p "Enable SSL for Nginx? (True/False, default is False): " ENABLE_SSL
-    ENABLE_SSL=${ENABLE_SSL:-"False"}
-    if [ "$ENABLE_SSL" == "True" ]; then
-        read -p "Enter your email for Let's Encrypt registration (ADMIN_EMAIL): " ADMIN_EMAIL
-    else
-        ADMIN_EMAIL="odoo@example.com"
-    fi
-else
-    WEBSITE_NAME="_"
-    ENABLE_SSL="False"
-    ADMIN_EMAIL="odoo@example.com"
-fi
+# ... (rest of the original script)
 
 ###  WKHTMLTOPDF download links
 ## === Ubuntu Trusty x64 & x32 === (for other distributions please replace these two links,
