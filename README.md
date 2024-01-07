@@ -13,6 +13,7 @@ If you set the parameter ```INSTALL_NGINX``` to ```True``` you should also confi
 ```
 sudo wget https://raw.githubusercontent.com/primacyinfotech/odooInstallScript/17.0/odoo_install.sh
 ```
+## input option 
 Ask value sudo wget https://raw.githubusercontent.com/primacyinfotech/odooInstallScript/17.0/input_odoo_install.sh
 ```
 
@@ -36,12 +37,14 @@ There are a few things you can configure, this is the most used list:<br/>
 ```
 sudo chmod +x odoo_install.sh
 ```
+## input option 
 sudo chmod +x input_odoo_install.sh
 ```
 ##### 4. Execute the script:
 ```
 sudo ./odoo_install.sh
 ```
+## input option 
 sudo ./input_odoo_install.sh
 ```
 
